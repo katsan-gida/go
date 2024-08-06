@@ -1,0 +1,13 @@
+package stats
+
+type StatsItemProps struct {
+	Title       string
+	MetricValue string
+}
+
+templ StatsItem(props StatsItemProps) {
+	<div class="flex w-full flex-col space-y-1 p-6">
+		<h6 class="text-sm text-slate-500">{ props.Title }</h6>
+		<p class="text-2xl font-medium text-slate-900">{ props.MetricValue }</p>
+	</div>
+}

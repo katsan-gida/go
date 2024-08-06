@@ -1,0 +1,50 @@
+package dropdown2
+
+import "katsan/ui/icons"
+
+type (
+	dropDownDirection int
+	dropDownSize      int
+)
+
+const (
+	DirectionDown dropDownDirection = iota
+	DirectionUp
+
+	SizeSmall dropDownSize = iota
+	SizeMedium
+	SizeLarge
+)
+
+type DropdownProps struct {
+	Direction    dropDownDirection
+	Size         dropDownSize
+	SelectedItem string
+	Attrs        templ.Attributes
+	Placeholder  string
+}
+
+templ Dropdown(props DropdownProps) {
+	<div
+		class="relative"
+		x-data="{
+        open: true,
+        toggle() { this.open = !this.open },
+     }"
+	>
+		<button class="inline-flex h-8 items-center space-x-8 rounded-md border border-slate-200 px-4 py-1 text-sm font-medium transition-colors hover:bg-slate-100" x-on:click="toggle()">
+			if props.SelectedItem != "" {
+				// TODO: implement selected value
+				<span></span>
+			} else {
+				<span>{ props.Placeholder }</span>
+			}
+			@icons.DownChevronIcon(icons.IconProps{
+				Size: icons.SizeXSmall,
+			})
+		</button>
+		<div class="absolute flex flex-col rounded-lg border border-slate-200 bg-white p-2 shadow" x-show="open" x-on:click.outside="toggle()">
+			{ children... }
+		</div>
+	</div>
+}

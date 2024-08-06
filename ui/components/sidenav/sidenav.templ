@@ -1,0 +1,16 @@
+package sidenav
+
+type SideNavProps struct {
+	Header templ.Component
+	Footer templ.Component
+}
+
+templ SideNav(props SideNavProps) {
+	<div class="sticky flex h-screen w-72 flex-col space-y-6 border-r border-slate-200">
+		@props.Header
+		<div class="flex grow flex-col space-y-6">
+			{ children... }
+		</div>
+		@props.Footer
+	</div>
+}

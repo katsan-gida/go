@@ -1,0 +1,11 @@
+package link
+
+type LinkProps struct {
+	Href templ.SafeURL
+}
+
+templ Link(props LinkProps) {
+	<a class="truncate text-sm text-blue-600 underline-offset-4 transition-all duration-300 hover:underline" href={ props.Href }>
+		{ children... }
+	</a>
+}

@@ -1,0 +1,34 @@
+package pages
+
+import (
+	"katsan/order/infrastructure/presentation/layouts"
+	"katsan/ui/components/breadcrumb"
+	"katsan/ui/icons"
+)
+
+templ NewOrderPage() {
+	@layouts.OMSLayout(layouts.OMSLayoutProps{
+		Title:      "Sipariş Oluştur",
+		ActivePath: "/oms/orders",
+	}) {
+		@breadcrumb.Breadcrumb() {
+			@breadcrumb.BreadcrumbItem(breadcrumb.BreadcrumbItemProps{
+				Href:  "/oms/dashboard",
+				Label: "Sipariş Yönetim Sistemi",
+			}) {
+				@icons.HomeIcon(icons.IconProps{
+					Size: icons.SizeXSmall,
+				})
+			}
+			@breadcrumb.BreadcrumbItem(breadcrumb.BreadcrumbItemProps{
+				Href:  "/oms/orders",
+				Label: "Siparişler",
+			})
+			@breadcrumb.BreadcrumbItem(breadcrumb.BreadcrumbItemProps{
+				Href:     "/oms/orders/new",
+				Label:    "Sipariş Oluştur",
+				IsActive: true,
+			})
+		}
+	}
+}

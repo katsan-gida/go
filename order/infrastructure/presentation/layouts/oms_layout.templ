@@ -1,0 +1,148 @@
+package layouts
+
+import (
+	"katsan/ui/components/sidenav"
+	"katsan/ui/icons"
+	"katsan/ui/templates"
+)
+
+type OMSLayoutProps struct {
+	Title      string
+	ActivePath string
+}
+
+templ OMSLayout(props OMSLayoutProps) {
+	@templates.RootTemplate(templates.RootTemplateProps{
+		Title: "Cari Hesaplar",
+	}) {
+		// <div class="flex flex-col">
+		<div class="flex">
+			@sidenav.SideNav(sidenav.SideNavProps{
+				Header: sideNavHeader(),
+				Footer: sideNavFooter(),
+			}) {
+				@sidenav.SideNavSection(sidenav.SideNavSectionProps{
+					Title: "Sipariş Yönetim Sistemi",
+					Grow:  true,
+				}) {
+					@sidenav.SideNavLink(sidenav.SideNavLinkProps{
+						Href:        "/oms/dashboard",
+						Label:       "Pano",
+						CurrentPath: props.ActivePath,
+					}) {
+						@icons.HomeIcon(icons.IconProps{
+							Size: icons.SizeMedium,
+						})
+					}
+					@sidenav.SideNavLink(sidenav.SideNavLinkProps{
+						Href:        "/oms/accounts",
+						Label:       "Cari Hesaplar",
+						CurrentPath: props.ActivePath,
+					}) {
+						@icons.AccountsIcon(icons.IconProps{
+							Size: icons.SizeMedium,
+						})
+					}
+					@sidenav.SideNavLink(sidenav.SideNavLinkProps{
+						Href:        "/oms/orders",
+						Label:       "Siparişler",
+						CurrentPath: props.ActivePath,
+					}) {
+						@icons.OrdersIcon(icons.IconProps{
+							Size: icons.SizeMedium,
+						})
+					}
+					@sidenav.SideNavLink(sidenav.SideNavLinkProps{
+						Href:        "/oms/returns",
+						Label:       "İadeler",
+						CurrentPath: props.ActivePath,
+					}) {
+						@icons.ReturnsIcon(icons.IconProps{
+							Size: icons.SizeMedium,
+						})
+					}
+					@sidenav.SideNavLink(sidenav.SideNavLinkProps{
+						Href:        "/oms/average-maturity-calculator",
+						Label:       "Ortalama Vade Hesaplayıcı",
+						CurrentPath: props.ActivePath,
+					}) {
+						@icons.CalculatorIcon(icons.IconProps{
+							Size: icons.SizeMedium,
+						})
+					}
+				}
+				@sidenav.SideNavSection(
+					sidenav.SideNavSectionProps{
+						Title: "Genel",
+						Grow:  false,
+					},
+				) {
+					@sidenav.SideNavLink(
+						sidenav.SideNavLinkProps{
+							Href:        "/me/my-account",
+							Label:       "Hesabım",
+							CurrentPath: props.ActivePath,
+						},
+					) {
+						@icons.ProfileIcon(
+							icons.IconProps{
+								Size: icons.SizeMedium,
+							},
+						)
+					}
+					@sidenav.SideNavLink(
+						sidenav.SideNavLinkProps{
+							Href:        "/application/settings",
+							Label:       "Ayarlar",
+							CurrentPath: props.ActivePath,
+						},
+					) {
+						@icons.SettingsIcon(
+							icons.IconProps{
+								Size: icons.SizeMedium,
+							},
+						)
+					}
+				}
+			}
+			<div class="flex min-h-screen w-full flex-col space-y-6 p-4">
+				{ children... }
+			</div>
+		</div>
+		// <div class="flex flex-col">
+		// 	// <div class="flex border-t border-slate-200 p-6">
+		// 	// 	<img class="h-28" src="/static/assets/footer-logo.jpg" alt="Katsan Gıda logo"/>
+		// 	// </div>
+		// 	<div class="flex items-center justify-between border-t border-slate-200 p-6">
+		// 		<img class="h-10" src="/static/assets/footer-logo.jpg" alt="Katsan Gıda logo"/>
+		// 		<p class="text-sm text-slate-500">© 2024 Katsan Gıda San. Tic. Ltd. Şti. Tüm haklar saklıdır.</p>
+		// 	</div>
+		// </div>
+		// </div>
+	}
+}
+
+templ sideNavHeader() {
+	<div class="px-4 pt-4">
+		<img class="h-8 w-[100px]" src="/static/assets/logo.png" alt="Katsan Gıda logo"/>
+	</div>
+}
+
+templ sideNavFooter() {
+	<div class="flex items-center space-x-3 border-t border-slate-200 p-4">
+		<img class="size-10 rounded-full border border-black/5" src="/static/assets/avatar.png" alt="user profile avatar"/>
+		<div class="grow overflow-hidden">
+			<p class="truncate text-base font-medium text-slate-900">
+				Burak Baloğlu
+			</p>
+			<p class="truncate text-xs text-slate-500">
+				burak.baloglu@katsan.app 
+			</p>
+		</div>
+		<button class="inline-flex size-10 items-center justify-center rounded-md transition-colors hover:bg-slate-100">
+			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15"></path>
+			</svg>
+		</button>
+	</div>
+}

@@ -1,0 +1,56 @@
+package pages
+
+import (
+	"katsan/ui/components/button"
+	"katsan/ui/components/link"
+	"katsan/ui/components/textinput"
+	"katsan/ui/components/toggle"
+	"katsan/ui/templates"
+)
+
+templ LoginPage() {
+	@templates.RootTemplate(templates.RootTemplateProps{
+		Title: "Giriş Yap",
+	}) {
+		<div class="flex min-h-screen py-16 lg:py-0">
+			<div class="hidden lg:flex lg:w-1/2">
+				<img class="h-screen w-full" src="/static/assets/login-banner.jpg" alt="banner"/>
+			</div>
+			<div class="flex w-full flex-col items-center justify-center space-y-9 font-medium lg:w-1/2">
+				<img class="h-8 w-[100px]" src="/static/assets/logo.png" alt="katsan gıda logo"/>
+				<h1 class="text-2xl text-slate-900">
+					Hesabınıza Giriş Yap
+				</h1>
+				<form class="flex w-2/3 flex-col space-y-6" hx-boost="true">
+					@textinput.TextInput(textinput.TextInputProps{
+						Label:       "Email Adresi",
+						Name:        "email",
+						Type:        textinput.TypeEmail,
+						Placeholder: "katsan@katsan.app",
+					})
+					@textinput.TextInput(textinput.TextInputProps{
+						Label:       "Şifre",
+						Name:        "password",
+						Type:        textinput.TypePassword,
+						Placeholder: "Şifreniz",
+					})
+					<div class="flex items-center justify-between space-x-3 overflow-hidden">
+						@toggle.Toggle(toggle.ToggleProps{
+							Label: "Beni Hatırla",
+							Name:  "remember-me",
+						})
+						@link.Link(link.LinkProps{
+							Href: "/forgot-my-password",
+						})
+						<a class="text-sm text-blue-600 underline-offset-4 transition-all duration-300 hover:underline" href="/forgot-password">Şifremi Unuttum</a>
+					</div>
+					@button.Button(button.ButtonProps{
+						Text: "Giriş Yap",
+						Size: button.ButtonSizeLarge,
+						Type: button.ButtonTypeSubmit,
+					})
+				</form>
+			</div>
+		</div>
+	}
+}

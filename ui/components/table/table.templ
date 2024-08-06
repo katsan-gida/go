@@ -1,0 +1,22 @@
+package table
+
+type TableProps struct {
+	Title       string
+	Description string
+}
+
+templ Table(props TableProps) {
+	<div class="flex w-full flex-col space-y-4">
+		<div class="flex flex-col">
+			<h1 class="text-xl font-semibold text-slate-900">
+				{ props.Title }
+			</h1>
+			<p class="text-sm text-slate-500">
+				{ props.Description }
+			</p>
+		</div>
+		<table class="w-full table-auto text-sm">
+			{ children... }
+		</table>
+	</div>
+}

@@ -1,0 +1,31 @@
+package toggle
+
+import "katsan/ui/components/label"
+
+type ToggleProps struct {
+	Name    string
+	Label   string
+	Checked bool
+}
+
+templ Toggle(props ToggleProps) {
+	<div class="flex items-center space-x-3">
+		<div
+			x-data={ "{ checked: " + func() string {
+            if props.Checked {
+                return "true"
+            }
+            return "false"
+        }() +", toggle() { this.checked = !this.checked } }" }
+			x-bind:data-checked="checked"
+			x-on:click="toggle()"
+			class="inline-flex h-6 w-11 cursor-pointer items-center whitespace-nowrap rounded-full bg-slate-100 transition-colors hover:bg-slate-200 data-[checked=true]:bg-blue-600 data-[checked=true]:hover:bg-blue-500"
+		>
+			<button x-bind:data-checked="checked" class="size-4 translate-x-1 rounded-full bg-white transition-all data-[checked=true]:translate-x-6" type="button"></button>
+			<input class="appearance-none" type="checkbox" name={ props.Name } id={ props.Name } x-bind:checked="checked"/>
+		</div>
+		@label.Label(label.LabelProps{For: props.Name}) {
+			{ props.Label }
+		}
+	</div>
+}

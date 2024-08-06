@@ -1,0 +1,11 @@
+package dropdown
+
+type DropdownItemProps struct {
+	Key string
+}
+
+templ DropdownItem(props DropdownItemProps) {
+	<button class="inline-flex h-8 min-w-20 flex-shrink-0 items-center justify-between rounded-md px-4 text-sm font-medium hover:bg-slate-200" x-on:click={ "selectedIndex = $refs.dropdown_item" + props.Key + ".getAttribute('key'), toggle()" } type="button" x-ref={ "dropdown_item" + props.Key } key={ props.Key }>
+		{ children... }
+	</button>
+}

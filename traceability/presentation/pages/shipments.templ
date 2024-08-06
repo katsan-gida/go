@@ -1,0 +1,67 @@
+package pages
+
+import (
+	"katsan/ui/components/pageheader"
+	"katsan/ui/components/table"
+	"katsan/ui/templates"
+)
+
+templ ShipmentsPage() {
+	@templates.RootTemplate(templates.RootTemplateProps{
+		Title: "Sevkiyat Listesi",
+	}) {
+		<div class="flex flex-col">
+			<div class="flex h-14 items-center justify-between border-b border-slate-200 px-2 lg:px-4">
+				<img class="h-8 w-[100px]" src="/static/assets/logo.png" alt="katsan gida logo"/>
+			</div>
+			<main class="flex flex-col space-y-6 p-2 lg:p-4">
+				@pageheader.PageHeader(pageheader.PageHeaderProps{
+					Title:       "Sevkiyat Listesi",
+					Description: "Sevkiyatlarınızı buradan görüntüleyebilirsiniz.",
+					Tabs:        templ.NopComponent,
+				})
+				@table.Table(table.TableProps{
+					Title:       "Sevkiyat Listesi",
+					Description: "Sevkiyatlarınızı buradan görüntüleyebilirsiniz.",
+				}) {
+					@table.TableHeader() {
+						@table.TableHeaderCell(table.TableHeaderCellProps{
+							Align: table.TableHeaderAlignLeft,
+						}) {
+							Hesap Kodu
+						}
+						@table.TableHeaderCell(table.TableHeaderCellProps{
+							Align: table.TableHeaderAlignCenter,
+						}) {
+							Miktar (Koli)
+						}
+						@table.TableHeaderCell(table.TableHeaderCellProps{
+							Align: table.TableHeaderAlignRight,
+						}) {
+							Sipariş No
+						}
+					}
+					@table.TableBody() {
+						@table.TableRow() {
+							@table.TableCell(table.TableCellProps{
+								Align: table.TableCellAlignLeft,
+							}) {
+								// { shipment.AccountCode }
+							}
+							@table.TableCell(table.TableCellProps{
+								Align: table.TableCellAlignCenter,
+							}) {
+								// { strconv.FormatFloat(shipment.BatchSize / shipment.Quantity, 'f', -4, 64 ) }
+							}
+							@table.TableCell(table.TableCellProps{
+								Align: table.TableCellAlignRight,
+							}) {
+								// { shipment.ID }
+							}
+						}
+					}
+				}
+			</main>
+		</div>
+	}
+}

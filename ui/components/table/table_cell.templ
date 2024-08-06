@@ -1,0 +1,20 @@
+package table
+
+type tableCellAlign int
+
+const (
+	TableCellAlignLeft tableCellAlign = iota
+	TableCellAlignCenter
+	TableCellAlignRight
+)
+
+type TableCellProps struct {
+	Align           tableCellAlign
+	TruncateContent bool
+}
+
+templ TableCell(props TableCellProps) {
+	<td class={ getTableCellClass(props), templ.KV("truncate", props.TruncateContent) }>
+		{ children... }
+	</td>
+}

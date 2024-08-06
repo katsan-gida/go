@@ -1,0 +1,16 @@
+package sidenav
+
+type SideNavLinkProps struct {
+	Href        templ.SafeURL
+	Label       string
+	CurrentPath string
+}
+
+templ SideNavLink(props SideNavLinkProps) {
+	<a href={ props.Href }>
+		<button class="inline-flex h-12 w-full items-center space-x-3 text-nowrap rounded-xl px-3 text-base font-medium text-slate-500 transition-colors hover:bg-slate-100 aria-[current=page]:bg-blue-100 aria-[current=page]:text-blue-600 aria-[current=page]:hover:bg-blue-100" aria-current={ isActiveLink(props.CurrentPath, string(props.Href)) }>
+			{ children... }
+			<span>{ props.Label }</span>
+		</button>
+	</a>
+}

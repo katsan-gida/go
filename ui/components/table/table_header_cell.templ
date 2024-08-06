@@ -1,0 +1,19 @@
+package table
+
+type tableHeaderAlign int
+
+const (
+	TableHeaderAlignLeft tableHeaderAlign = iota
+	TableHeaderAlignCenter
+	TableHeaderAlignRight
+)
+
+type TableHeaderCellProps struct {
+	Align tableHeaderAlign
+}
+
+templ TableHeaderCell(props TableHeaderCellProps) {
+	<th class={ getTableHeaderClass(props) }>
+		{ children... }
+	</th>
+}

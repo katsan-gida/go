@@ -1,0 +1,128 @@
+package pages
+
+import (
+	"katsan/order/infrastructure/presentation/layouts"
+	"katsan/ui/components/breadcrumb"
+	"katsan/ui/components/pageheader"
+	"katsan/ui/components/table"
+	"katsan/ui/components/tabs"
+	"katsan/ui/icons"
+)
+
+templ AccountDetailsDebtAgingReportPage() {
+	@layouts.OMSLayout(layouts.OMSLayoutProps{
+		Title:      "Hesap Detayları",
+		ActivePath: "/oms/accounts",
+	}) {
+		@breadcrumb.Breadcrumb() {
+			@breadcrumb.BreadcrumbItem(breadcrumb.BreadcrumbItemProps{
+				Href:  "/oms/dashboard",
+				Label: "Sipariş Yönetim Sistemi",
+			}) {
+				@icons.HomeIcon(icons.IconProps{
+					Size: icons.SizeXSmall,
+				})
+			}
+			@breadcrumb.BreadcrumbItem(breadcrumb.BreadcrumbItemProps{
+				Href:  "/oms/accounts",
+				Label: "Cari Hesaplar",
+			})
+			@breadcrumb.BreadcrumbItem(breadcrumb.BreadcrumbItemProps{
+				Label:    "Hesap Detayları | AD GIDA",
+				Href:     "/oms/accounts/403",
+				IsActive: true,
+			})
+		}
+		// TODO: Description will be updated 
+		@pageheader.PageHeader(pageheader.PageHeaderProps{
+			Title:       "AD GIDA TEKSTİL SAN.TİC.LTD.ŞTİ.",
+			Description: "Hesap detaylarınızı buradan inceleyebilir ve güncelleyebilirsiniz.",
+			Tabs:        debtAgingTabs(),
+		})
+		@table.Table(table.TableProps{
+			Title:       "Bakiye Yaşlandırma Listesi",
+			Description: "Hesabınıza ait bakiye yaşlandırma listesini buradan inceleyebilirsiniz.",
+		}) {
+			@table.TableHeader() {
+				@table.TableHeaderCell(table.TableHeaderCellProps{
+					Align: table.TableHeaderAlignCenter,
+				}) {
+					Tarih
+				}
+				@table.TableHeaderCell(table.TableHeaderCellProps{
+					Align: table.TableHeaderAlignCenter,
+				}) {
+					Fatura No
+				}
+				@table.TableHeaderCell(table.TableHeaderCellProps{
+					Align: table.TableHeaderAlignLeft,
+				}) {
+					Açıklama
+				}
+				@table.TableHeaderCell(table.TableHeaderCellProps{
+					Align: table.TableHeaderAlignRight,
+				}) {
+					Tutar
+				}
+				@table.TableHeaderCell(table.TableHeaderCellProps{
+					Align: table.TableHeaderAlignCenter,
+				}) {
+					Yaş
+				}
+			}
+			@table.TableBody() {
+				@table.TableRow()
+			}
+		}
+		@table.Table(table.TableProps{
+			Title:       "Toplam Tonaj Listesi",
+			Description: "Hesabınıza ait toplam tonaj listesini buradan inceleyebilirsiniz.",
+		}) {
+			@table.TableHeader() {
+				@table.TableHeaderCell(table.TableHeaderCellProps{
+					Align: table.TableHeaderAlignCenter,
+				}) {
+					Ay
+				}
+				@table.TableHeaderCell(table.TableHeaderCellProps{
+					Align: table.TableHeaderAlignRight,
+				}) {
+					Miktar
+				}
+				@table.TableHeaderCell(table.TableHeaderCellProps{
+					Align: table.TableHeaderAlignRight,
+				}) {
+					Tutar
+				}
+			}
+			@table.TableBody() {
+				@table.TableRow()
+			}
+		}
+	}
+}
+
+templ debtAgingTabs() {
+	@tabs.Tabs() {
+		@tabs.TabItem(tabs.TabItemProps{
+			Href:       "/oms/accounts/403/account-information",
+			ActiveHref: "/oms/accounts/403/debt-aging-report",
+			Label:      "Cari Hesap Detayları",
+		})
+		@tabs.TabItem(tabs.TabItemProps{
+			Href:       "/oms/accounts/403/debt-aging-report",
+			ActiveHref: "/oms/accounts/403/debt-aging-report",
+			Label:      "Bakiye Yaşlandırma Bilgileri",
+		})
+		@tabs.TabItem(tabs.TabItemProps{
+			Href:       "/oms/accounts/403/tonage-list",
+			ActiveHref: "/oms/accounts/403/debt-aging-report",
+			Label:      "Tonaj Bilgileri",
+		})
+		@tabs.TabItem(tabs.TabItemProps{
+			Href:       "/oms/accounts/403/orders",
+			ActiveHref: "/oms/accounts/403/debt-aging-report",
+			Label:      "Siparişler",
+		})
+	}
+}

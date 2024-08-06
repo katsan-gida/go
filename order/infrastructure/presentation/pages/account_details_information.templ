@@ -1,0 +1,86 @@
+package pages
+
+import (
+	"katsan/order/infrastructure/presentation/layouts"
+	"katsan/ui/components/breadcrumb"
+	"katsan/ui/components/pageheader"
+	"katsan/ui/components/stats"
+	"katsan/ui/components/tabs"
+	"katsan/ui/icons"
+)
+
+templ AccountDetailsAccountInformatinPage() {
+	@layouts.OMSLayout(layouts.OMSLayoutProps{
+		Title:      "Hesap Detayları",
+		ActivePath: "/oms/accounts",
+	}) {
+		@breadcrumb.Breadcrumb() {
+			@breadcrumb.BreadcrumbItem(breadcrumb.BreadcrumbItemProps{
+				Href:  "/oms/dashboard",
+				Label: "Sipariş Yönetim Sistemi",
+			}) {
+				@icons.HomeIcon(icons.IconProps{
+					Size: icons.SizeXSmall,
+				})
+			}
+			@breadcrumb.BreadcrumbItem(breadcrumb.BreadcrumbItemProps{
+				Href:  "/oms/accounts",
+				Label: "Cari Hesaplar",
+			})
+			@breadcrumb.BreadcrumbItem(breadcrumb.BreadcrumbItemProps{
+				Label:    "Hesap Detayları | AD GIDA",
+				Href:     "/oms/accounts/403",
+				IsActive: true,
+			})
+		}
+		// TODO: Description will be updated 
+		@pageheader.PageHeader(pageheader.PageHeaderProps{
+			Title:       "AD GIDA TEKSTİL SAN.TİC.LTD.ŞTİ.",
+			Description: "Hesap detaylarınızı buradan inceleyebilir ve güncelleyebilirsiniz.",
+			Tabs:        pageTabs(),
+		})
+		@stats.Stats() {
+			@stats.StatsItem(stats.StatsItemProps{
+				Title:       "Borç Bakiyesi",
+				MetricValue: "19.061,64TL",
+			})
+			@stats.StatsItem(stats.StatsItemProps{
+				Title:       "Ciro Tutarı",
+				MetricValue: "19.061,64TL",
+			})
+			@stats.StatsItem(stats.StatsItemProps{
+				Title:       "İade Tutarı",
+				MetricValue: "19.061,64TL",
+			})
+			@stats.StatsItem(stats.StatsItemProps{
+				Title:       "Net Ciro Tutarı",
+				MetricValue: "19.061,64TL",
+			})
+		}
+	}
+}
+
+templ pageTabs() {
+	@tabs.Tabs() {
+		@tabs.TabItem(tabs.TabItemProps{
+			Href:       "/oms/accounts/403/account-information",
+			ActiveHref: "/oms/accounts/403/account-information",
+			Label:      "Cari Hesap Detayları",
+		})
+		@tabs.TabItem(tabs.TabItemProps{
+			Href:       "/oms/accounts/403/debt-aging-report",
+			ActiveHref: "/oms/accounts/403/account-information",
+			Label:      "Bakiye Yaşlandırma Bilgileri",
+		})
+		@tabs.TabItem(tabs.TabItemProps{
+			Href:       "/oms/accounts/403/tonage-list",
+			ActiveHref: "/oms/accounts/403/account-information",
+			Label:      "Tonaj Bilgileri",
+		})
+		@tabs.TabItem(tabs.TabItemProps{
+			Href:       "/oms/accounts/403/orders",
+			ActiveHref: "/oms/accounts/403/account-information",
+			Label:      "Siparişler",
+		})
+	}
+}

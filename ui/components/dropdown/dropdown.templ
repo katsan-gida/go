@@ -1,0 +1,63 @@
+package dropdown
+
+import (
+	"katsan/ui/icons"
+	"strconv"
+)
+
+type dropdownDirection int
+type dropdownSize int
+
+const (
+	DirectionUp dropdownDirection = iota
+	DirectionDown
+
+	SizeSmall dropdownSize = iota
+	SizeMedium
+	SizeLarge
+)
+
+type DropdownProps struct {
+	Direction     dropdownDirection
+	SelectedIndex int
+	Placeholder   string
+	Size          dropdownSize
+	attrs         templ.Attributes
+}
+
+templ Dropdown(props DropdownProps) {
+	<div class="relative" x-data={ "{ open: false, toggle() { this.open = !this.open }, selectedValue: '', selectedIndex: " + strconv.Itoa(props.SelectedIndex) + "  }" } x-effect="console.log(selectedIndex, $refs.dropdown.childNodes)">
+		<button class="inline-flex h-8 min-w-20 items-center justify-between space-x-3 rounded-md border border-slate-200 px-4 text-sm font-medium hover:bg-slate-200" x-on:click="toggle()" type="button">
+			if props.SelectedIndex == -1 {
+				<span>{ props.Placeholder }</span>
+			} else {
+				<span x-text="selectedValue"></span>
+			}
+			@icons.DownChevronIcon(icons.IconProps{
+				Size: icons.SizeXSmall,
+			})
+		</button>
+		<input class="appearance-none" type="text" { props.attrs... } x-bind:value="selectedValue"/>
+		// <template></template>
+		<div
+			class={ "absolute flex h-48 flex-col space-y-1 overflow-y-scroll rounded-lg border border-slate-200 bg-white p-2", templ.KV("-top-48", func() bool {
+			if props.Direction == DirectionUp {
+				return true
+			}
+			return false
+		}()),  templ.KV("top-8", func() bool {
+			if props.Direction == DirectionDown {
+				return true
+			}
+			return false
+		}()) }
+			x-show="open"
+			x-transition
+			x-on:click.outside="toggle()"
+			x-ref="dropdown"
+			x-model="selectedValue = $refs.dropdown.childNodes[selectedIndex].innerText"
+		>
+			{ children... }
+		</div>
+	</div>
+}

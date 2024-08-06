@@ -1,0 +1,93 @@
+package pages
+
+import (
+	"katsan/order/infrastructure/presentation/layouts"
+	"katsan/ui/components/breadcrumb"
+	"katsan/ui/components/pageheader"
+	"katsan/ui/components/table"
+	"katsan/ui/icons"
+)
+
+templ OrdersPage() {
+	@layouts.OMSLayout(layouts.OMSLayoutProps{
+		Title:      "Siparişler",
+		ActivePath: "/oms/orders",
+	}) {
+		@breadcrumb.Breadcrumb() {
+			@breadcrumb.BreadcrumbItem(breadcrumb.BreadcrumbItemProps{
+				Href:  "/oms/dashboard",
+				Label: "Sipariş Yönetim Sistemi",
+			}) {
+				@icons.HomeIcon(icons.IconProps{
+					Size: icons.SizeXSmall,
+				})
+			}
+			@breadcrumb.BreadcrumbItem(breadcrumb.BreadcrumbItemProps{
+				Href:     "/oms/orders",
+				Label:    "Siparişler",
+				IsActive: true,
+			})
+		}
+		// <div class="flex justify-between border-b border-slate-200 pb-4" hx-boost="true">
+		// 	<div class="flex flex-col">
+		// 		<h1 class="text-2xl font-light text-slate-900">
+		// 			Siparişler
+		// 		</h1>
+		// 		<p class="text-sm font-medium text-slate-500">Buradan geçmiş siparişlerinizi yönetebilir ve yeni sipariş oluşturabilirsiniz.</p>
+		// 	</div>
+		// 	<a href="/oms/orders/new">
+		// 		<button class="h-12 rounded-xl bg-blue-600 px-4 text-sm font-medium text-white ring-blue-600 ring-offset-4 transition-all hover:bg-blue-500 active:scale-95">Yeni Sipariş Oluştur</button>
+		// 	</a>
+		// </div>
+		@pageheader.PageHeader(pageheader.PageHeaderProps{
+			Title:       "Siparişler",
+			Description: "Buradan geçmiş siparişlerinizi yönetebilir ve yeni sipariş oluşturabilirsiniz.",
+		}) {
+			<a href="/oms/orders/new">
+				<button class="h-12 rounded-xl bg-blue-600 px-4 text-sm font-medium text-white ring-blue-600 ring-offset-4 transition-all hover:bg-blue-500 active:scale-95">Yeni Sipariş Oluştur</button>
+			</a>
+		}
+		@table.Table(table.TableProps{
+			Title:       "Geçmiş Siparişler",
+			Description: "Geçmiş siparişlerinizi buradan yönetebilirsiniz.",
+		}) {
+			@table.TableHeader() {
+				@table.TableHeaderCell(table.TableHeaderCellProps{
+					Align: table.TableHeaderAlignLeft,
+				}) {
+					Tarih
+				}
+				@table.TableHeaderCell(table.TableHeaderCellProps{
+					Align: table.TableHeaderAlignLeft,
+				}) {
+					Teslim Yeri
+				}
+				@table.TableHeaderCell(table.TableHeaderCellProps{
+					Align: table.TableHeaderAlignLeft,
+				}) {
+					Sipariş No
+				}
+				@table.TableHeaderCell(table.TableHeaderCellProps{
+					Align: table.TableHeaderAlignLeft,
+				}) {
+					Stok Kodu
+				}
+				@table.TableHeaderCell(table.TableHeaderCellProps{
+					Align: table.TableHeaderAlignLeft,
+				}) {
+					Stok Adı
+				}
+				@table.TableHeaderCell(table.TableHeaderCellProps{
+					Align: table.TableHeaderAlignLeft,
+				}) {
+					Birim
+				}
+				@table.TableHeaderCell(table.TableHeaderCellProps{
+					Align: table.TableHeaderAlignLeft,
+				}) {
+					Miktar
+				}
+			}
+		}
+	}
+}

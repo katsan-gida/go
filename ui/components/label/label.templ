@@ -1,0 +1,11 @@
+package label
+
+type LabelProps struct {
+	For string
+}
+
+templ Label(props LabelProps) {
+	<label class="truncate text-sm font-semibold text-slate-900" for={ props.For }>
+		{ children... }
+	</label>
+}

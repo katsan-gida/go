@@ -1,0 +1,58 @@
+package textinput 
+
+import "katsan/ui/components/label"
+
+type (
+	textInputType int
+)
+
+const (
+	TypeText textInputType = iota
+	TypePassword
+	TypeEmail
+	TypeNumber
+)
+
+type TextInputProps struct {
+	Label       string
+	Placeholder string
+	Type        textInputType
+	Name        string
+	AutoFocus   bool
+}
+
+templ TextInput(props TextInputProps) {
+	<div class="flex flex-col space-y-2">
+		@label.Label(label.LabelProps{For: props.Name}) {
+			{ props.Label }
+		}
+		<div class="inline-flex h-10 w-full items-center rounded-xl border border-slate-200 px-4 text-sm text-slate-900 ring-blue-600 ring-offset-2 transition-all duration-200 focus-within:ring-2 hover:border-slate-300">
+			<input
+				class="h-8 w-full outline-none placeholder:text-slate-500"
+				name={ props.Name }
+				id={ props.Name }
+				placeholder={ props.Placeholder }
+				type={ func() string {
+                switch props.Type {
+                    case TypeText:
+                        return "text"
+                    case TypePassword:
+                        return "password"
+                    case TypeEmail:
+                        return "email"
+                    case TypeNumber:
+                        return "number"
+                    default:
+                        return "text"
+                }
+            }() }
+				autofocus={ func() string {
+				if props.AutoFocus {
+					return "true"
+				}
+				return "false"
+			}() }
+			/>
+		</div>
+	</div>
+}

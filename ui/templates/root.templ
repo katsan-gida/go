@@ -1,0 +1,30 @@
+package templates
+
+type RootTemplateProps struct {
+	Title string
+}
+
+templ RootTemplate(props RootTemplateProps) {
+	<!DOCTYPE html>
+	<html lang="tr">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<title>{ props.Title } | Katsan Gıda</title>
+			<link rel="icon" href="/static/assets/favicon.ico" type="image/x-icon"/>
+			<link rel="icon" href="/static/assets/icon-48x48.png" sizes="48x48"/>
+			<link rel="icon" href="/static/assets/icon-64x64.png" sizes="64x64"/>
+			<link rel="icon" href="/static/assets/icon-96x96.png" sizes="96x96"/>
+			<link rel="apple-touch-icon" href="/static/assets/apple-icon-120x120.png" sizes="120x120"/>
+			<link rel="apple-touch-icon" href="/static/assets/apple-icon-152x152.png" sizes="152x152"/>
+			<link rel="apple-touch-icon" href="/static/assets/apple-icon-167x167.png" sizes="167x167"/>
+			<link rel="apple-touch-icon" href="/static/assets/apple-icon-180x180.png" sizes="180x180"/>
+			<script src="https://cdn.tailwindcss.com"></script>
+			<script src="https://unpkg.com/htmx.org@2.0.1"></script>
+			<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+		</head>
+		<body class="">
+			{ children... }
+		</body>
+	</html>
+}

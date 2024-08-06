@@ -1,0 +1,162 @@
+package pages 
+
+import (
+	"katsan/order/application/queries"
+	"katsan/order/infrastructure/presentation/layouts"
+	"katsan/ui/components/breadcrumb"
+	"katsan/ui/components/dropdown"
+	"katsan/ui/components/dropdown2"
+	"katsan/ui/components/table"
+	"katsan/ui/icons"
+	"strconv"
+)
+
+templ AccountsPage(vm []queries.GetDomesticAccountsWithOrderStatusReponse) {
+	@layouts.OMSLayout(layouts.OMSLayoutProps{
+		Title:      "Cari Hesaplar",
+		ActivePath: "/oms/accounts",
+	}) {
+		@breadcrumb.Breadcrumb() {
+			@breadcrumb.BreadcrumbItem(breadcrumb.BreadcrumbItemProps{
+				Href:  "/oms/dashboard",
+				Label: "Sipariş Yönetim Sistemi",
+			}) {
+				@icons.HomeIcon(icons.IconProps{
+					Size: icons.SizeXSmall,
+				})
+			}
+			@breadcrumb.BreadcrumbItem(breadcrumb.BreadcrumbItemProps{
+				Href:     "/oms/accounts",
+				Label:    "Cari Hesaplar",
+				IsActive: true,
+			})
+		}
+		<div class="flex flex-col space-y-4">
+			@table.Table(table.TableProps{
+				Title:       "Cari Hesaplar",
+				Description: "Cari hesaplarınızı buradan yönetebilirsiniz.",
+			}) {
+				@table.TableHeader() {
+					@table.TableHeaderCell(table.TableHeaderCellProps{
+						Align: table.TableHeaderAlignLeft,
+					}) {
+						Hesap Kodu
+					}
+					@table.TableHeaderCell(table.TableHeaderCellProps{
+						Align: table.TableHeaderAlignLeft,
+					}) {
+						Hesap Adı
+					}
+					@table.TableHeaderCell(table.TableHeaderCellProps{
+						Align: table.TableHeaderAlignCenter,
+					}) {
+						Sipariş Durumu
+					}
+					@table.TableHeaderCell(table.TableHeaderCellProps{
+						Align: table.TableHeaderAlignCenter,
+					}) {
+						İşlemler
+					}
+				}
+				@table.TableBody() {
+					for _, account := range vm {
+						@table.TableRow() {
+							@table.TableCell(table.TableCellProps{
+								Align: table.TableCellAlignLeft,
+							}) {
+								{ account.AccountCode }
+							}
+							@table.TableCell(table.TableCellProps{
+								Align:           table.TableCellAlignLeft,
+								TruncateContent: true,
+							}) {
+								{ account.AccountName }
+							}
+							@table.TableCell(table.TableCellProps{
+								Align: table.TableCellAlignCenter,
+							}) {
+								Yok
+							}
+							@table.TableCell(table.TableCellProps{
+								Align: table.TableCellAlignCenter,
+							}) {
+								<a href={ templ.SafeURL("/oms/accounts/"+account.AccountID) + "/account-information" } hx-boost="true">
+									<button class="h-8 rounded-md px-4 text-center font-medium text-blue-600 transition-colors hover:bg-blue-100">
+										Detaylar
+									</button>
+								</a>
+							}
+						}
+					}
+				}
+			}
+			<div class="flex w-full items-center space-x-3 divide-x divide-slate-200 rounded-lg bg-slate-100 text-sm text-slate-900 shadow *:flex *:h-12 *:items-center *:px-4">
+				<div class="flex space-x-2">
+					<p>Sayfada gösterilen</p>
+					@dropdown.Dropdown(dropdown.DropdownProps{
+						Direction:     dropdown.DirectionUp,
+						SelectedIndex: 0,
+					}) {
+						@dropdown.DropdownItem(dropdown.DropdownItemProps{
+							Key: "0",
+						}) {
+							10
+						}
+						@dropdown.DropdownItem(dropdown.DropdownItemProps{
+							Key: "2",
+						}) {
+							20
+						}
+						@dropdown.DropdownItem(dropdown.DropdownItemProps{
+							Key: "4",
+						}) {
+							50
+						}
+						@dropdown.DropdownItem(dropdown.DropdownItemProps{
+							Key: "6",
+						}) {
+							100
+						}
+					}
+				</div>
+				<div class="grow">
+					<p>Sayfada gösterilen 1 ile 10 aralığı</p>
+				</div>
+				<div class="space-x-2">
+					<p>11 sayfadan</p>
+					@dropdown.Dropdown(dropdown.DropdownProps{
+						Direction: dropdown.DirectionUp,
+					}) {
+						for i := range 11 {
+							@dropdown.DropdownItem(dropdown.DropdownItemProps{
+								Key: strconv.Itoa(i),
+							},
+							) {
+								<span>{ strconv.Itoa(i + 1) }</span>
+							}
+						}
+					}
+				</div>
+				<div>
+					<button class="inline-flex size-8 items-center justify-center rounded-md transition-colors hover:bg-slate-200">
+						@icons.LeftChevron(icons.IconProps{
+							Size: icons.SizeXSmall,
+						})
+					</button>
+					<button class="inline-flex size-8 items-center justify-center rounded-md transition-colors hover:bg-slate-200">
+						@icons.RightChevron(icons.IconProps{
+							Size: icons.SizeXSmall,
+						})
+					</button>
+				</div>
+			</div>
+			@dropdown2.Dropdown(dropdown2.DropdownProps{
+				Direction:   dropdown2.DirectionDown,
+				Size:        dropdown2.SizeSmall,
+				Placeholder: "İşlem Seçiniz",
+			}) {
+				deneme
+			}
+		</div>
+	}
+}

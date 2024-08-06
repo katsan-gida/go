@@ -1,0 +1,13 @@
+package tabs
+
+type TabItemProps struct {
+	Href       templ.SafeURL
+	ActiveHref templ.SafeURL
+	Label      string
+}
+
+templ TabItem(props TabItemProps) {
+	<a class="border-blue-600 px-4 pb-3 text-sm font-medium text-slate-500 transition-all hover:border-b-2 hover:border-slate-500 hover:text-slate-700 aria-[current=page]:border-b-2 aria-[current=page]:text-blue-600 aria-[current=page]:hover:border-blue-600" aria-current={ isTabActive(props) } href={ props.Href }>
+		{ props.Label }
+	</a>
+}
